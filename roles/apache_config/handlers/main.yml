@@ -1,0 +1,12 @@
+---
+
+- name: restart httpd
+  become: yes
+  service:
+    name: httpd
+    state: restarted
+  register:  restart_httpd
+
+- name: Result of restart httpd
+  debug:
+    var: restart_httpd

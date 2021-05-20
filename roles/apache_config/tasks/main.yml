@@ -1,0 +1,28 @@
+---
+# Config httpd (apache)
+- name: Change apache listen port to 8080 
+  become: yes
+  lineinfile: 
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: "^Listen 80" 
+    line: "Listen {{ LISTEN_PORT }}"
+    state: present
+  notify:
+    - restart httpd
+  tags:  httpd
+
+- name: Import Hello World file
+  become: yes
+  copy: 
+    src: "{{ role_path }}/files/index.html"
+    dest: /var/www/html
+  tags: httpd
+
+- name: Importing Jinja2 Template file
+  become: yes
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/teste_jinja2.html.j2"
+    dest: /var/www/html/teste_jinja2.html
+  notify:
+    - restart httpd
+  tags: jinja2

@@ -1,0 +1,18 @@
+---
+# Instalar httpd (apache)
+- name: Installing packages on webserver
+  become: yes
+  yum: 
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - httpd
+    - curl
+    - wget
+    - telnet
+  register: installresult
+  tags: packages_install
+
+- name: Display results of packages being installed
+  debug:
+    var: installresult

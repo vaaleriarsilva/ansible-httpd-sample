@@ -1,0 +1,10 @@
+---
+
+# This playbook deploys a simple Unicorn.Rentals webserver.
+- name: Playbook that deploys Unicorn.Rentals webserver
+  hosts: localhost
+  vars_files:
+    - inventories/group_vars/{{ ENV }}
+  roles:
+    - role: apache_config
+  tags: ["apache_config"]
